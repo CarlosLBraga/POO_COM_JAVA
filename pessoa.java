@@ -23,6 +23,19 @@ public class Pessoa
         this.mae = mae;
     }
     
+    public void set_irmao (Pessoa[] irmao, int n){
+        this.irmao = new Pessoa[n];
+        for (int i = 0; i < n; i++){
+            this.irmao[i] = irmao[i];
+        }
+        
+        System.out.println("irmãos de " + this.nome + " : ");
+        for (int i = 0; i < n; i++){
+            System.out.println("- " + this.irmao[i].nome);
+        }
+    }
+    
+    
     
 	public static void main(String[] args) {
 	    Pessoa pessoa_1 = new Pessoa("Cadu", 23);
@@ -37,6 +50,17 @@ public class Pessoa
 		
 		System.out.println("Mãe " + pessoa_1.mae.nome);
 		System.out.println("Pai " + pessoa_1.pai.nome);
+		
+		//irmao
+		Pessoa pessoa_4 = new Pessoa("Matheus", 15);
+		Pessoa pessoa_5 = new Pessoa("Gabriel", 26);
+		
+		Pessoa[] irmaos = {pessoa_4, pessoa_5};
+		pessoa_1.set_irmao(irmaos, 2);
+		
+		
+		
+		
 		
 		
 	}
