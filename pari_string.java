@@ -31,6 +31,26 @@ public class pari_string
              throw new IllegalArgumentException();
         }
     }
+
+
+	public static HashSet<Integer> diferenca_conjunto (HashSet<Integer> a, HashSet<Integer> b) throws IllegalArgumentException{
+        if(!a.isEmpty() && !b.isEmpty()){
+           HashSet<Integer> dif_conjunto = new HashSet <>();
+           for (Integer i : a){
+               if (!b.contains(i)){
+                   dif_conjunto.add(i);
+               }
+           }
+           for (Integer i : b){
+               if(!a.contains(i)){
+                   dif_conjunto.add(i);
+               }
+           }
+           return dif_conjunto;
+            
+        }
+        throw new IllegalArgumentException();
+    }	
     
 	public static void main(String[] args) {
 	    
