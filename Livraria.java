@@ -108,15 +108,92 @@ public class Livraria
         this.Estoque_Livro_Tecnico = new HashMap<>();
     }
     
+    public void add_livro (Livro livro, int n){
+        
+        if (n>0 && livro.get_titulo() != null){
+            System.out.println("adicionado");
+            if (livro.get_tipo().equals("Literario")){
+                
+		    Estoque_Livro_Literario.put(livro.get_titulo(), n);
+		} else {
+		    Estoque_Livro_Tecnico.put(livro.get_titulo(), n);
+		}
+		
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+    }
     
+    public HashMap<String, Integer> set_livros_tecnicos (){
+        return Estoque_Livro_Tecnico;
+    } 
+    
+    
+    public String toString (){
+        return "Livros Técnicos " + Estoque_Livro_Tecnico + "\n Livros Literários " + Estoque_Livro_Literario;
+    }
+    
+    
+    public void venda_livro (Livro livro, int n){
+        if (livro.get_tipo().equals("Literario")){
+            if (Estoque_Livro_Literario.containsKey(livro.get_titulo())){
+                int debito = Estoque_Livro_Literario.get(livro.get_titulo());
+                debito = debito - n;
+                if (debito < 0){
+                    Estoque_Livro_Literario.put(livro.get_titulo(), 0);
+                    throw new UnsupportedOperationException("Estoque Insuficiente");
+                }
+                else {
+                    Estoque_Livro_Literario.put(livro.get_titulo(), debito);
+                }
+                
+            }else{
+                throw new IllegalArgumentException("livro inexistente");
+            }
+        }else{
+            
+            if (Estoque_Livro_Tecnico.containsKey(livro.get_titulo())){
+                int debito = Estoque_Livro_Tecnico.get(livro.get_titulo());
+                debito = debito - n;
+                if (debito < 0){
+                    Estoque_Livro_Tecnico.put(livro.get_titulo(), 0);
+                    throw new UnsupportedOperationException("Estoque Insuficiente");
+                }
+                else {
+                    Estoque_Livro_Tecnico.put(livro.get_titulo(), debito);
+                }
+                
+            }else{
+                throw new IllegalArgumentException("livro inexistente");
+        }
+            
+        }
+    }
     
 	public static void main(String[] args) {
+	    
+	    Livraria Livraria_Naruto = new Livraria();
+	    
 		System.out.println("Livraria Narutinho");
 		Livro_Literario livro_1 = new Livro_Literario("Abracadabra", "Lula", "PT", 2020, "Fantasia", 10);
 		System.out.println(livro_1);
-		System.out.println(livro_1.get_tipo());
+		System.out.println("testando if");
+		
 		Livro_Tecnico livro_2 = new Livro_Tecnico("Moléculas", "Dilma", "PCC", 2011, "Química", "Física");
 		System.out.println(livro_2);
 		System.out.println(livro_2.get_tipo());
+		
+		Livro_Tecnico livro_3 = new Livro_Tecnico("Prótons", "Eduardo Paes", "PSOL", 2003, "Química", "Biologio");
+		
+		Livro_Literario livro_4 = new Livro_Literario("Borboletinha", "Marina Sena", "CHOQUEI", 2023, "Terror", 18);
+		
+		Livraria_Naruto.add_livro(livro_1, 10);
+		Livraria_Naruto.add_livro(livro_2, 15);
+		Livraria_Naruto.add_livro(livro_3, 5);
+		Livraria_Naruto.add_livro(livro_4, 5);
+		System.out.println(Livraria_Naruto.set_livros_tecnicos().get("Moléculas"));
+		//Livraria_Naruto.venda_livro(livro_4, 10);
+		System.out.println(Livraria_Naruto);
 	}
 }
